@@ -1,0 +1,18 @@
+{% for group in bgp_groups %}
+set protocols bgp group {{ group.name }} type {{ group.type }}
+set protocols bgp group {{ group.name }} local-address {{ group.local_address }}
+set protocols bgp group {{ group.name }} export {{ group.export_policy }}
+{% if group.bfd is defined %}
+set protocols bgp group {{ group.name }} bfd-liveness-detection minimum-interval {{ group.bfd.min }}
+{% endif %}
+{% if group.neighbors is defined %}
+{% for neighbor in group.neighbors %}
+set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }}
+{% if neighbor.import is defined %}
+set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }} import {{ neighbor.import }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+set routing-options router-id {{ router_id }}
+set routing-options autonomous-system {{ bgp_asn }}
