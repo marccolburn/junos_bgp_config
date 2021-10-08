@@ -9,6 +9,7 @@ Requirements
 
 Role Variables
 --------------
+bgp_remove: bool, remove BGP config instead of configure
 bgp_asn: string
 router_id: string
 bgp_groups: list of dictionaries
