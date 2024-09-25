@@ -1,7 +1,11 @@
 {% for group in bgp_groups %}
 delete protocols bgp group {{ group.name }} type {{ group.type }}
+{% if group.local_address is defined %}
 delete protocols bgp group {{ group.name }} local-address {{ group.local_address }}
+{% endif %}
+{% if group.type == 'external' %}
 delete protocols bgp group {{ group.name }} export {{ group.export_policy }}
+{% endif %}
 {% if group.bfd is defined %}
 delete protocols bgp group {{ group.name }} bfd-liveness-detection minimum-interval {{ group.bfd.min }}
 {% endif %}
