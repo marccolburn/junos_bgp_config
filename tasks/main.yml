@@ -1,0 +1,24 @@
+---
+- name: Generate BGP Reflector Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'bgp_reflector.j2').split('\n') }}"
+    comment: "Configured BGP"
+  when: bgp_reflector == True and bgp_remove == False
+
+- name: Generate BGP Client Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'bgp_client.j2').split('\n') }}"
+    comment: "Configured BGP"
+  when: bgp_reflector == False and bgp_remove == False
+
+- name: Remove BGP Reflector Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'bgp_reflector_remove.j2').split('\n') }}"
+    comment: "Configured BGP"
+  when: bgp_reflector == True and bgp_remove == True
+
+- name: Remove BGP Client Configuration
+  junos_config:
+    lines: "{{ lookup('template', 'bgp_client_remove.j2').split('\n') }}"
+    comment: "Configured BGP"
+  when: bgp_reflector == False and bgp_remove == True
