@@ -12,6 +12,9 @@ set protocols bgp group {{ group.name }} export {{ group.export_policy }}
 {% if group.multihop is defined %}
 set protocols bgp group {{ group.name }} multihop 
 {% endif %}
+{% if group.multipath is defined %}
+set protocols bgp group {{ group.name }} multipath
+{% endif %}
 {% if group.bfd is defined %}
 set protocols bgp group {{ group.name }} bfd-liveness-detection minimum-interval {{ group.bfd.min }}
 {% endif %}
