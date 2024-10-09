@@ -3,7 +3,7 @@ set protocols bgp group {{ group.name }} type {{ group.type }}
 {% if group.local_address is defined %}
 set protocols bgp group {{ group.name }} local-address {{ group.local_address }}
 {% endif %}
-{% if group.type == 'external' %}
+{% if group.peer_as is defined %}
 set protocols bgp group {{ group.name }} peer-as {{ group.peer_as }}
 {% endif %}
 {% if group.export_policy is defined %}
