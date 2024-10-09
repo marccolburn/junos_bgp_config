@@ -9,6 +9,9 @@ set protocols bgp group {{ group.name }} peer-as {{ group.peer_as }}
 {% if group.export_policy is defined %}
 set protocols bgp group {{ group.name }} export {{ group.export_policy }}
 {% endif %}
+{% if group.multihop is defined %}
+set protocols bgp group {{ group.name }} multihop 
+{% endif %}
 {% if group.bfd is defined %}
 set protocols bgp group {{ group.name }} bfd-liveness-detection minimum-interval {{ group.bfd.min }}
 {% endif %}
@@ -22,6 +25,9 @@ set protocols bgp group {{ group.name }} family {{ family }}
 set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }}
 {% if neighbor.import is defined %}
 set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }} import {{ neighbor.import }}
+{% endif %}
+{% if neighbor.peer_as is defined %}
+set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }} peer-as {{ neighbor.peer_as }}
 {% endif %}
 {% endfor %}
 {% endif %}
