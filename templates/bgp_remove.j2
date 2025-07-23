@@ -1,0 +1,5 @@
+{% for group in bgp_groups %}
+delete protocols bgp group {{ group.name }}
+{% endfor %}
+delete routing-options router-id {{ router_id }}
+delete routing-options autonomous-system {{ bgp_asn }}

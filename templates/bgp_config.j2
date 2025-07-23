@@ -23,6 +23,9 @@ set protocols bgp group {{ group.name }} bfd-liveness-detection minimum-interval
 set protocols bgp group {{ group.name }} family {{ family }}
 {% endfor %}
 {% endif %}
+{% if group.cluster is defined %}
+set protocols bgp group {{ group.name }} cluster {{ group.cluster.address }}
+{% endif %}
 {% if group.neighbors is defined %}
 {% for neighbor in group.neighbors %}
 set protocols bgp group {{ group.name }} neighbor {{ neighbor.address }}
